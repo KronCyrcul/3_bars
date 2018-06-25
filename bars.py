@@ -10,7 +10,7 @@ def load_data(filepath):
     for bar in json_data["features"]:
         bars_info[bar["properties"]["Attributes"]["Name"]] = bar["geometry"]["coordinates"], \
             bar["properties"]["Attributes"]["SeatsCount"]
-    return(bars_info)
+    return bars_info
 
 
 def get_biggest_bar(bars_info):
