@@ -5,14 +5,15 @@
 # Как запустить
 
 Скрипт требует для своей работы установленного интерпретатора Python версии 3.5
+Для запуска требуется сохранить файл по ссылке https://devman.org/media/filer_public/95/74/957441dc-78df-4c99-83b2-e93dfd13c2fa/bars.json
 
 Запуск на Linux:
 
 ```bash
 
-$ python bars.py # possibly requires call of python3 executive instead of just python
-#Введи координаты в формате "x,y"
-40,40 #пример ответа
+$ python bars.py "path to file" # possibly requires call of python3 executive instead of just python
+Введи координаты в формате 'x,y'
+40,40 #пример ввода
 Самый большой бар - Спорт бар <Красная машина>
 Самый маленький бар - БАР. СОКИ
 Ближайщий бар - Бар <Ракета>
