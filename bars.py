@@ -5,8 +5,8 @@ import math
 
 
 def load_data(filepath):
-    data = json.loads(json_string)
-    return(data)
+    bars_data = json.loads(json_string)
+    return bars_data
 
 
 def get_biggest_bar(bars_data):
@@ -36,21 +36,19 @@ def get_closest_bar(bars_data, longitude, latitude):
 if __name__ == "__main__":
     try:
         file_path = sys.argv[1]
-        try:
-            with open(file_path, encoding="utf8") as file:
-                json_string = file.read()
-            bars_data = load_data(file_path)
-            try:
-                longitude, latitude = map(
-                    float,
-                    input("Введи координаты в формате 'x,y'\n").split(","))
-                print("Самый большой бар - %s" % get_biggest_bar(bars_data))
-                print("Самый маленький бар - %s" % get_smallest_bar(bars_data))
-                print("Ближайщий бар - %s" % get_closest_bar(
-                    bars_data, longitude, latitude))
-            except ValueError:
-                print("Неверные координаты")
-        except FileNotFoundError:
-            print("Такого файла нет")
+        with open(file_path, encoding="utf8") as file:
+            json_string = file.read()
+        bars_data = load_data(file_path)
+        longitude, latitude = map(
+            float,
+            input("Введи координаты в формате 'x,y'\n").split(","))
+        print("Самый большой бар - %s" % get_biggest_bar(bars_data))
+        print("Самый маленький бар - %s" % get_smallest_bar(bars_data))
+        print("Ближайщий бар - %s" % get_closest_bar(
+            bars_data, longitude, latitude))
+    except ValueError:
+        print("Неверные координаты")
+    except FileNotFoundError:
+        print("Такого файла нет")
     except IndexError:
         print("Введи путь к файлу при запуске")
