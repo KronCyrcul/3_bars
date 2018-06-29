@@ -5,50 +5,53 @@ import math
 
 
 def load_data(filepath):
-    bars_data = json.loads(json_string)
-    return bars_data
+    if not filepath.endswith(".json"):
+        raise FileNotFoundError
+    try:
+        with open(filepath, encoding="utf8") as file:
+            json_string = file.read()
+        bars_data = json.loads(json_string)
+    except FileNotFoundError:
+        raise FileNotFoundError
+    else:
+        return bars_data["features"]
 
 
 def get_biggest_bar(bars_data):
-    seats_count = {}
-    for bar in bars_data["features"]:
-        seats_count[bar["properties"]["Attributes"]["Name"]] = (
-            bar["properties"]["Attributes"]["SeatsCount"])
-    return max(seats_count, key=lambda k: seats_count[k])
+    biggest_bar = max(
+        bars_data,
+        key=lambda k: k["properties"]["Attributes"]["SeatsCount"])
+    return biggest_bar["properties"]["Attributes"]["Name"]
 
 
 def get_smallest_bar(bars_data):
-    seats_count = {}
-    for bar in bars_data["features"]:
-        seats_count[bar["properties"]["Attributes"]["Name"]] = (
-            bar["geometry"]["coordinates"])
-    return min(seats_count, key=lambda k: seats_count[k])
+    smallest_bar = min(
+        bars_data,
+        key=lambda k: k["properties"]["Attributes"]["SeatsCount"])
+    return smallest_bar["properties"]["Attributes"]["Name"]
 
 
 def get_closest_bar(bars_data, longitude, latitude):
-    bars_distance = {}
-    for bar in bars_data["features"]:
-        bars_distance[bar["properties"]["Attributes"]["Name"]] = math.sqrt(
-            (longitude - bar["geometry"]["coordinates"][0])**2
-            + (latitude - bar["geometry"]["coordinates"][1])**2)
-    return min(bars_distance, key=lambda k: bars_distance[k])
+    closest_bar = min(bars_data, key=lambda k: math.sqrt(
+            (longitude - k["geometry"]["coordinates"][0])**2
+            + (latitude - k["geometry"]["coordinates"][1])**2))
+    return closest_bar["properties"]["Attributes"]["Name"]
 
 if __name__ == "__main__":
     try:
-        file_path = sys.argv[1]
-        with open(file_path, encoding="utf8") as file:
-            json_string = file.read()
-        bars_data = load_data(file_path)
+        filepath = sys.argv[1]
+        bars_data = load_data(filepath)
         longitude, latitude = map(
             float,
             input("Введи координаты в формате 'x,y'\n").split(","))
-        print("Самый большой бар - %s" % get_biggest_bar(bars_data))
-        print("Самый маленький бар - %s" % get_smallest_bar(bars_data))
-        print("Ближайщий бар - %s" % get_closest_bar(
-            bars_data, longitude, latitude))
     except ValueError:
         print("Неверные координаты")
     except FileNotFoundError:
-        print("Такого файла нет")
+        print("Неверный файл")
     except IndexError:
-        print("Введи путь к файлу при запуске")
+        print("Введите путь к файлу при запуске")
+    else:
+        print(("Самый большой бар - {}").format(get_biggest_bar(bars_data)))
+        print(("Самый маленький бар - {}").format(get_smallest_bar(bars_data)))
+        print(("Ближайщий бар - {}").format(get_closest_bar(
+            bars_data, longitude, latitude)))
