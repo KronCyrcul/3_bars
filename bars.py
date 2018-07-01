@@ -16,6 +16,7 @@ def load_data(filepath):
     except json.decoder.JSONDecodeError:
         return None
 
+
 def get_biggest_bar(bars_data):
     biggest_bar = max(
         bars_data,
