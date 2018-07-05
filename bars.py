@@ -55,9 +55,10 @@ if __name__ == "__main__":
         sys.exit("Файл не найден")
     except IndexError:
         sys.exit("Введите путь к файлу при запуске")
-    biggest_bar = get_biggest_bar(bars_data)
-    smallest_bar = get_smallest_bar(bars_data)
-    closest_bar = get_closest_bar(bars_data, longitude, latitude)
-    print(("Самый большой бар - {}").format(print_bar(biggest_bar)))
-    print(("Самый маленький бар - {}").format(print_bar(smallest_bar)))
-    print(("Ближайщий бар - {}").format(print_bar(closest_bar)))
+    else:
+        biggest_bar = get_biggest_bar(bars_data)
+        smallest_bar = get_smallest_bar(bars_data)
+        closest_bar = get_closest_bar(bars_data, longitude, latitude)
+        print(("Самый большой бар - {}").format(print_bar(biggest_bar)))
+        print(("Самый маленький бар - {}").format(print_bar(smallest_bar)))
+        print(("Ближайщий бар - {}").format(print_bar(closest_bar)))
