@@ -51,10 +51,8 @@ if __name__ == "__main__":
             input("Введи координаты в формате 'x,y'\n").split(","))
     except ValueError:
         sys.exit("Неверные координаты")
-    except FileNotFoundError:
+    except (FileNotFoundError, IndexError):
         sys.exit("Файл не найден")
-    except IndexError:
-        sys.exit("Введите путь к файлу при запуске")
     else:
         biggest_bar = get_biggest_bar(bars_data)
         smallest_bar = get_smallest_bar(bars_data)
