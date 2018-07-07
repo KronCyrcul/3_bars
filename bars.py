@@ -35,9 +35,9 @@ def get_closest_bar(bars_data, longitude, latitude):
     return closest_bar
 
 
-def get_bar_name(bar):
+def print_bar(bar_feature, bar):
     bar_name = bar["properties"]["Attributes"]["Name"]
-    return bar_name
+    print(("{} - {}").format(bar_feature, bar_name))
 
 
 if __name__ == "__main__":
@@ -53,10 +53,10 @@ if __name__ == "__main__":
         sys.exit("Неверные координаты")
     except (FileNotFoundError, IndexError):
         sys.exit("Файл не найден")
-    #else:
+    new_string = "{} - {}"
     biggest_bar = get_biggest_bar(bars_data)
     smallest_bar = get_smallest_bar(bars_data)
     closest_bar = get_closest_bar(bars_data, longitude, latitude)
-    print(("Самый большой бар - {}").format(get_bar_name(biggest_bar)))
-    print(("Самый маленький бар - {}").format(get_bar_name(smallest_bar)))
-    print(("Ближайщий бар - {}").format(get_bar_name(closest_bar)))
+    print_bar("Самый большой бар", biggest_bar)
+    print_bar("Самый маленький бар", smallest_bar)
+    print_bar("Ближайщий бар", closest_bar)
