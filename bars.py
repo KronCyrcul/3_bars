@@ -53,7 +53,6 @@ if __name__ == "__main__":
         sys.exit("Неверные координаты")
     except (FileNotFoundError, IndexError):
         sys.exit("Файл не найден")
-    new_string = "{} - {}"
     biggest_bar = get_biggest_bar(bars_data)
     smallest_bar = get_smallest_bar(bars_data)
     closest_bar = get_closest_bar(bars_data, longitude, latitude)
